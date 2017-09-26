@@ -42,6 +42,14 @@ class Content < ApplicationRecord
         record
       end
     end
+
+    #===================================
+    # Content::regist
+    #   子テーブルまで登録するメソッド
+    #===================================
+    def exist? cond
+      where(cond).empty?.!
+    end
   end
 
   #=====================================
