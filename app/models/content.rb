@@ -45,10 +45,10 @@ class Content < ApplicationRecord
   end
 
   #=====================================
-  # Content#master
+  # Content#mst
   #   mst_***s を返す
   #=====================================
-  def master type
+  def mst type
     # make receiver
     symbol    = "mst_#{type}".to_sym
     receiver  = self.send symbol
@@ -60,7 +60,7 @@ class Content < ApplicationRecord
   #=====================================
   def regist_subtable type, list
     # make receiver
-    receiver  = self.master type
+    receiver  = self.mst type
     # make master class
     klass     = self.class::master_class type
     # regist each data
@@ -68,5 +68,16 @@ class Content < ApplicationRecord
       # record.mst_tags << MstTag::find_or_create_by
       receiver << klass::find_or_create_by(name: text)
     }
+  end
+
+  #=====================================
+  # Content#names
+  # mst_***s の テキストデータを返す
+  #=====================================
+  def names type
+    # make receiver
+    receiver  = self.mst type
+    # rteturn names
+    receiver.map &:name
   end
 end
