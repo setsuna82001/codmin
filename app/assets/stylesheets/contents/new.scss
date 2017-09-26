@@ -1,0 +1,36 @@
+div.container.new-action {
+  // 検索結果の各要素
+  div.thumbnail.searchdata {
+    text-align: center;
+
+    // タイトル
+    div.row.part-title {
+      & > span {
+        display: inline-block;
+        width: 200px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+    
+    // サムネイル
+    div.row.part-thumbnail {
+      & > img {
+        height: 200px;
+        max-height: 200px;
+      }
+    }
+
+    // ボタン
+    div.row.part-register {
+      margin-top: 2px;
+      & > button {
+        width: 75%;
+      }
+    }
+
+  }
+
+
+}

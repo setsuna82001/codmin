@@ -1,0 +1,9 @@
+@import "twitter-bootstrap-static/bootstrap";
+
+@for $size from 1 through 12 {
+  .col-grid-#{$size} {
+    @each $type in xs, sm, md, lg {
+      @extend .col-#{$type}-#{$size};
+    }
+  }
+}

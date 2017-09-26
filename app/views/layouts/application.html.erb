@@ -8,7 +8,18 @@
     <%= javascript_include_tag 'application' %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body ng-app="<%= params[:controller] %>App">
+    <div ng-controller="ngCtrl" ng-init="init()">
+      <%# navi %>
+      <%#= render partial: 'layouts/navi/main' %>
+
+      <%# contents %>
+      <div class="container <%= params[:action] %>-action">
+        <%= yield %>
+      </div>
+
+      <%# curtain %>
+      <%#= render partial: 'layouts/part_curtain' %>
+    </div>
   </body>
 </html>
