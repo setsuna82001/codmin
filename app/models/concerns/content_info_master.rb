@@ -14,12 +14,11 @@ module ContentInfoMaster
   #=====================================
   class_methods do
     #===================================
-    # ContentInfo::child
+    # ContentInfoMaster::child
     #===================================
     def child
       Kernel::const_get "#{self}"[3..-1].to_sym
     end
   end
-
-
+  
 end

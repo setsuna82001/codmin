@@ -21,5 +21,4 @@ module ContentInfo
     end
   end
 
-  
 end
