@@ -16,7 +16,22 @@ class ContentsController < ApplicationController
   #   検索結果画面表示
   #=====================================
   def search
-    # TODO varidate => type searchstr
+    # TODO varidate => type / searchstr
+
+    # type から Mstクラス生成
+    klass = Content::master_class params[:type]
+
+    # 条件に合致するcontent_id一覧を取得
+    ids   = klass
+      .where(name: params[:searchstr])
+      .map(&:content_ids)
+      .flatten
+      .uniq
+
+    # 表示対象のコンテンツ一覧を生成
+    @contents = Content::where id: ids
+
+    render action: :index
   end
 
   #=====================================
@@ -31,12 +46,8 @@ class ContentsController < ApplicationController
   #   詳細表示
   #=====================================
   def show
+    # TODO varidate => id
     @content  = Content::find params[:id]
-
-    url = url_for action: :new, id: 3
-    @content  = {url: url}
-
-    render json: @content.to_json and return
   end
 
   #=====================================

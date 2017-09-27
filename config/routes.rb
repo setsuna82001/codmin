@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   #=====================================
   # tag/author search
   #=====================================
+  get   '/contents/search/:type/:searchstr' => 'contents#search'
   post  '/contents/search/:type/:searchstr' => 'contents#search'
 
   #=====================================

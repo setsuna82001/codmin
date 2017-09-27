@@ -1,0 +1,28 @@
+types:
+  - :author
+  - :tag
+
+relations:
+  authors:  &relation-author
+    text:   作者
+    icon:   :pencil
+    model:
+      child:  :Author
+      master: :MstAuthor
+    master_colmun:  :mst_author_id
+    relation:
+      child:  :authors
+      master: :mst_authors
+  author:   *relation-author
+
+  tags:     &relation-tag
+    text:   タグ
+    icon:   :tags
+    model:
+      child:  :Tag
+      master: :MstTag
+    master_colmun:  :mst_tag_id
+    relation:
+      child:  :tags
+      master: :mst_tags
+  tag:      *relation-tag

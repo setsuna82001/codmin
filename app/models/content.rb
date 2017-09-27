@@ -9,13 +9,19 @@ class Content < ApplicationRecord
 
   class << self
     #===================================
+    # Content::dig_relation
+    #   Settings[:relations] の中を掘って返す
+    #===================================
+    def dig_relation type, *args
+      Settings[:relations][type].dig *args
+    end
+
+    #===================================
     # Content::master_class
     #   Master*** のクラスを返す
     #===================================
     def master_class type
-      text  = type.to_s.singularize
-      caml  = text.camelize
-      name  = "Mst#{caml}".to_sym
+      name  = dig_relation type, *%i(model master)
       klass = Kernel::const_get name
     end
 
@@ -34,7 +40,7 @@ class Content < ApplicationRecord
         record = self.create table
 
         # create sub tables
-        %i(tags authors).each{|type|
+        Settings[:types].each{|type|
           record.regist_subtable type, data[type]
         }
 
@@ -53,13 +59,22 @@ class Content < ApplicationRecord
   end
 
   #=====================================
-  # Content#mst
-  #   mst_***s を返す
+  # Content#dig_relation
+  #   クラスメソッドのラッパー
   #=====================================
-  def mst type
+  def dig_relation type, *args
+    self.class::dig_relation type, *args
+  end
+
+
+  #=====================================
+  # Content#masters
+  #   自身のmst_***s を返す
+  #=====================================
+  def masters type
     # make receiver
-    symbol    = "mst_#{type}".to_sym
-    receiver  = self.send symbol
+    name      = self.dig_relation type, *%i(relation master)
+    receiver  = self.send name
   end
 
   #=====================================
@@ -68,24 +83,37 @@ class Content < ApplicationRecord
   #=====================================
   def regist_subtable type, list
     # make receiver
-    receiver  = self.mst type
+    receiver  = self.masters type
     # make master class
     klass     = self.class::master_class type
     # regist each data
     list.each{|text|
-      # record.mst_tags << MstTag::find_or_create_by
+      # record.masters_tags << mastersTag::find_or_create_by
       receiver << klass::find_or_create_by(name: text)
     }
   end
 
   #=====================================
   # Content#names
-  # mst_***s の テキストデータを返す
+  # masters_***s の テキストデータを返す
   #=====================================
   def names type
     # make receiver
-    receiver  = self.mst type
+    receiver  = self.masters type
     # rteturn names
     receiver.map &:name
+  end
+
+  #=====================================
+  # Content#method_missing
+  #=====================================
+  def method_missing name, *args
+    #===================================
+    # Content#***_names
+    #   Content#namesの呼出
+    #===================================
+    return self.names "#{$1}s".to_sym if name =~ /^(.+)s?_names$/
+    # 上層呼出
+    super
   end
 end

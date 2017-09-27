@@ -1,0 +1,38 @@
+h1 中身かくにん！
+
+br
+
+/=====================================
+/ 表示用パネル
+/=====================================
+div.panel.panel-info
+  // パネルヘッダ
+  div.panel-heading 手順① 確認する
+
+  // パネル内容
+  div.panel-body
+    div.row.part-title
+      span
+        a href="#{@content.url}" target="_blank" #{@content.title}
+    div.row
+      div.col-grid-2
+      // サムネイル
+      div.col-grid-4.part-thumbnail
+        div.thumbnail
+          img src="#{@content.img}"
+
+      // 作者, タグ
+      - for key in Settings[:types]
+        div class="col-grid-2 part-#{key}"
+          // 表示するテキストデータを保持
+          - names = @content.send "#{key}_names".to_sym
+          //==========================
+          // 詳細情報用パネル
+          //==========================
+          div.panel.panel-info.names
+            div.panel-heading #{Content::dig_relation key, :text}
+            // パネル内各要素
+            div.panel-body
+              - for name in names
+                div.row
+                  a href="#{ url_for only_path: true, action: :search, type: key, searchstr: name}" #{name}
