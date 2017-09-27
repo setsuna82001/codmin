@@ -8,9 +8,9 @@ class ContentsController < ApplicationController
   #   一覧表示
   #=====================================
   def index
+    # empty check
     redirect_to action: :new and return if Content::blank?
-    # TODO Content.empty => redirect #new
-    # TODO page
+    # TODO pager
     @contents = Content::all
   end
 
@@ -30,7 +30,7 @@ class ContentsController < ApplicationController
       .map(&:content_ids)
       .flatten
       .uniq
-    # TODO page
+    # TODO pager
 
     # 表示対象のコンテンツ一覧を生成
     @contents = Content::where id: ids
