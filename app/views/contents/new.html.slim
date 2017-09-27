@@ -2,14 +2,14 @@ h1 DMM検索＆コミック登録ぺーじ
 
 br
 
-/=====================================
-/ 検索用パネル
-/=====================================
+//=====================================
+// 検索用パネル
+//=====================================
 div.panel.panel-info
-  / パネルヘッダ
+  // パネルヘッダ
   div.panel-heading 手順① 検索する
 
-  / パネル内容
+  // パネル内容
   div.panel-body
     form.form-inline action='#'
       div.input-group
@@ -19,29 +19,29 @@ div.panel.panel-info
 
 br
 
-/ TODO DELETE
+// TODO DELETE
 div ng-init="searchlist = [{"title":"艦隊これくしょん -艦これ- アンソロジーコミック 横須賀鎮守府編","url":"http://book.dmm.com/detail/b508akaeb00006/","img":"https://pics.dmm.com/digital/e-book/b508akaeb00006/b508akaeb00006ps.jpg"},{"title":"艦隊これくしょん -艦これ- 止まり木の鎮守府","url":"http://book.dmm.com/detail/b507bkaam01597/","img":"https://pics.dmm.com/digital/e-book/b507bkaam01597/b507bkaam01597ps.jpg"},{"title":"艦隊これくしょん ‐艦これ‐ コミックアラカルト 舞鶴鎮守府編","url":"http://book.dmm.com/detail/b510akaka00001/","img":"https://pics.dmm.com/digital/e-book/b510akaka00001/b510akaka00001ps.jpg"},{"title":"艦隊これくしょん-艦これ- 電撃コミックアンソロジー 佐世保鎮守府編","url":"http://book.dmm.com/detail/b507akaam00001/","img":"https://pics.dmm.com/digital/e-book/b507akaam00001/b507akaam00001ps.jpg"},{"title":"艦隊これくしょん -艦これ- 4コマコミック 吹雪、がんばります！","url":"http://book.dmm.com/detail/b508akaeb00004/","img":"https://pics.dmm.com/digital/e-book/b508akaeb00004/b508akaeb00004ps.jpg"},{"title":"艦隊これくしょん -艦これ- おねがい！鎮守府目安箱","url":"http://book.dmm.com/detail/b507bkaam01219/","img":"https://pics.dmm.com/digital/e-book/b507bkaam01219/b507bkaam01219ps.jpg"},{"title":"艦これプレイ漫画 艦々日和","url":"http://book.dmm.com/detail/b508akaeb00012/","img":"https://pics.dmm.com/digital/e-book/b508akaeb00012/b508akaeb00012ps.jpg"},{"title":"艦隊これくしょん -艦これ- ケッコンカッコカリアンソロジー","url":"http://book.dmm.com/detail/b507akaam00010/","img":"https://pics.dmm.com/digital/e-book/b507akaam00010/b507akaam00010ps.jpg"},{"title":"艦隊これくしょん ‐艦これ‐ 水雷戦隊クロニクル","url":"http://book.dmm.com/detail/b510akaka00005/","img":"https://pics.dmm.com/digital/e-book/b510akaka00005/b510akaka00005ps.jpg"},{"title":"コハエースこれくしょん","url":"http://book.dmm.com/detail/b510akaka01498/","img":"https://pics.dmm.com/digital/e-book/b510akaka01498/b510akaka01498ps.jpg"},{"title":"艦隊これくしょん ‐艦これ‐ side:金剛","url":"http://book.dmm.com/detail/b510akaka00006/","img":"https://pics.dmm.com/digital/e-book/b510akaka00006/b510akaka00006ps.jpg"},{"title":"艦隊これくしょん -艦これ- 島風 つむじ風の少女","url":"http://book.dmm.com/detail/b507akaam00008/","img":"https://pics.dmm.com/digital/e-book/b507akaam00008/b507akaam00008ps.jpg"},{"title":"艦隊これくしょん -艦これ- 艦娘イラストコラム","url":"http://book.dmm.com/detail/b612akdde00001/","img":"https://pics.dmm.com/digital/e-book/b612akdde00001/b612akdde00001ps.jpg"},{"title":"艦隊これくしょん -艦これ- アンソロジーコミック 女子だって艦これが好き！","url":"http://book.dmm.com/detail/b508akaeb00584/","img":"https://pics.dmm.com/digital/e-book/b508akaeb00584/b508akaeb00584ps.jpg"},{"title":"艦これなのです！ 艦隊これくしょん -艦これ-","url":"http://book.dmm.com/detail/b509akafs00001/","img":"https://pics.dmm.com/digital/e-book/b509akafs00001/b509akafs00001ps.jpg"}]"
 
-/=====================================
-/ 検索結果パネル
-/=====================================
+//=====================================
+// 検索結果パネル
+//=====================================
 div.panel.panel-info ng-if="searchlist.length > 0"
-  / パネルヘッダ
+  // パネルヘッダ
   div.panel-heading 手順② コンテンツを選び『登録』ボタンをpush!
 
-  / パネル内容
+  // パネル内容
   div.panel-body
     div.row
       div.col-grid-3 ng-repeat="searchdata in searchlist track by $index"
         div.thumbnail.searchdata
-          / タイトル
+          // タイトル
           div.row.part-title
             <span>{{ searchdata.title }}</span>
-          / サムネイル
+          // サムネイル
           div.row.part-thumbnail
             a href="{{ searchdata.url }}" target="_blank"
               img ng-src="{{ searchdata.img }}"
-          / ボタン
+          // ボタン
           div.row.part-register
-            / TODO registed 判定
+            // TODO registed 判定
             button.btn.btn-success ng-click="create(searchdata)" 登録

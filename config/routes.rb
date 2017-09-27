@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   #=====================================
-  # TODO root => contents#index
-  root 'contents#new'
+  root 'contents#index'
 
   #=====================================
   # GET:  /contents     => contents#index
@@ -21,7 +20,7 @@ Rails.application.routes.draw do
   post  '/contents/search/:type/:searchstr' => 'contents#search'
 
   #=====================================
-  # POST  /api/search
+  # POST: /api/search
   #=====================================
   post  '/api/search' => 'contents#dmmsearch'
 end

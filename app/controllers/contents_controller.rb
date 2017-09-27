@@ -8,7 +8,10 @@ class ContentsController < ApplicationController
   #   一覧表示
   #=====================================
   def index
+    redirect_to action: :new and return if Content::blank?
     # TODO Content.empty => redirect #new
+    # TODO page
+    @contents = Content::all
   end
 
   #=====================================
@@ -16,10 +19,10 @@ class ContentsController < ApplicationController
   #   検索結果画面表示
   #=====================================
   def search
-    # TODO varidate => type / searchstr
-
     # type から Mstクラス生成
     klass = Content::master_class params[:type]
+    # TODO varidate => type
+    # if klass.nil?
 
     # 条件に合致するcontent_id一覧を取得
     ids   = klass
@@ -27,10 +30,23 @@ class ContentsController < ApplicationController
       .map(&:content_ids)
       .flatten
       .uniq
+    # TODO page
 
     # 表示対象のコンテンツ一覧を生成
     @contents = Content::where id: ids
 
+    # 検索情報
+    @searchinfo = {
+      # 検索タイプ
+      type: params[:type],
+      # 検索タイプの文字化
+      key:  Content::dig_relation(params[:type], :text),
+      # 検索文字列
+      str:  params[:searchstr],
+    }
+
+    # 描画設定
+    params[:action] = :index
     render action: :index
   end
 
@@ -48,6 +64,7 @@ class ContentsController < ApplicationController
   def show
     # TODO varidate => id
     @content  = Content::find params[:id]
+    # if @content.nil?
   end
 
   #=====================================
@@ -55,7 +72,6 @@ class ContentsController < ApplicationController
   #   新規登録処理
   #=====================================
   def create
-    # TODO varidate => title / url / img
     data  = params.to_unsafe_hash.symbolize
 
     # exist check
@@ -79,7 +95,6 @@ class ContentsController < ApplicationController
   # POST: /api/search
   #=====================================
   def dmmsearch
-    # TODO varidate => searchstr
     # search dmm contents
     data = DMMContent::search params[:searchstr]
     # TODO 登録済(registed)属性の追加

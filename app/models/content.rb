@@ -7,6 +7,11 @@ class Content < ApplicationRecord
   has_many :authors, dependent: :destroy
   has_many :mst_authors, through: :authors
 
+  validates :title, length: {minimum: 1}
+  validates :url, format: /\A#{URI::regexp(%w(http https))}\z/
+  validates :img, format: /\A#{URI::regexp(%w(http https))}\z/
+
+
   class << self
     #===================================
     # Content::dig_relation
