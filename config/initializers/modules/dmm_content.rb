@@ -1,4 +1,8 @@
 module DMMContent
+  PARSE_PATHS = {
+    authors:  'dl.m-boxDetailProductInfoMainList[1]//a',
+    tags:     'dl.m-boxDetailProductInfo__list[6]//a'
+  }
   #=====================================
   # DMMContent::ClassMethods
   #=====================================
@@ -31,11 +35,14 @@ module DMMContent
       page  = agent.get url.to_s
 
       # parsing
-      authors = page.search('dl.m-boxDetailProductInfoMainList[1]//a').map(&:text >> :chomp)
-      tags    = page.search('dl.m-boxDetailProductInfo__list[6]//a').map(&:text >> :chomp)
-
-      # return
-      compact %i(authors tags)
+      data  = %i(authors tags).inject([]){|arr, key|
+        # parse html
+        nodes = page.search PARSE_PATHS[key]
+        names = nodes.map(&:text >> :chomp)
+        # set data
+        names = names.uniq.delete_if &:empty?
+        next arr.push [key, names]
+      }.to_h
     end
 
   end
