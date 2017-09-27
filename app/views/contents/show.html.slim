@@ -15,7 +15,7 @@ div.panel.panel-info
       span
         a href="#{@content.url}" target="_blank" #{@content.title}
     div.row
-      div.col-grid-2
+      div.col-grid-1
       // サムネイル
       div.col-grid-4.part-thumbnail
         div.thumbnail
@@ -23,14 +23,15 @@ div.panel.panel-info
 
       // 作者, タグ
       - for key in Settings[:types]
-        div class="col-grid-2 part-#{key}"
+        div class="col-grid-3 part-#{key}"
           // 表示するテキストデータを保持
           - names = @content.send "#{key}_names".to_sym
           //==========================
           // 詳細情報用パネル
           //==========================
           div.panel.panel-info.names
-            div.panel-heading #{Content::dig_relation key, :text}
+            div.panel-heading
+              span class="glyphicon my-glyphicon-#{key}" #{Content::dig_relation key, :text}
             // パネル内各要素
             div.panel-body
               - for name in names

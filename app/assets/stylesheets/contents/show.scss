@@ -1,3 +1,4 @@
+@import "twitter-bootstrap-static/bootstrap";
 div.container.show-action {
 
   div.panel {
@@ -13,6 +14,20 @@ div.container.show-action {
 
     // 作者, タグのパネル
     div.panel.names {
+      // パネルヘッダ
+      & > div.panel-heading {
+        span.glyphicon {
+          // 作者
+          &.my-glyphicon-author {
+            @extend .glyphicon-pencil;
+          }
+          // タグ
+          &.my-glyphicon-tag {
+            @extend .glyphicon-tags;
+          }
+        }
+      }
+      // パネルボディ
       & > div.panel-body {
         text-align: left;
         & > div.row {

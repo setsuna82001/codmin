@@ -5,7 +5,6 @@ types:
 relations:
   authors:  &relation-author
     text:   作者
-    icon:   :pencil
     model:
       child:  :Author
       master: :MstAuthor
@@ -17,7 +16,6 @@ relations:
 
   tags:     &relation-tag
     text:   タグ
-    icon:   :tags
     model:
       child:  :Tag
       master: :MstTag
