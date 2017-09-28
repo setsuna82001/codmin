@@ -1,0 +1,30 @@
+// ナビ
+nav.navbar.navbar-default
+  div.container-fluid
+
+    // トップリンク
+    div.nav-header.col-grid-2
+      a.navbar-brand href="/"
+        span.glyphicon.glyphicon-home とっぷぺーじ
+
+
+    div.collapse.navbar-collapse
+      // 検索関連
+      // TODO 飛び先
+      form.navbar-form.navbar-left
+        div.form-group
+          // プルダウン
+          select.form-control
+            - for key in Settings[:types]
+              option value="#{key}"
+                = Content::dig_relation key, :text
+          // 入力ボックス
+          input.form-control type="text"
+        // ボタン
+        button.btn.btn-default.btn-primary type="submit"
+          span.glyphicon.glyphicon-search けんさく
+
+      // 新規登録
+      ul.nav.navbar-nav.navbar-right
+        a.navbar-brand.navbar-link href="#{url_for only_path: true, action: :new}"
+          span.glyphicon.glyphicon-file しんきとうろく

@@ -11,7 +11,7 @@
   <body ng-app="<%= params[:controller] %>App">
     <div ng-controller="ngCtrl" ng-init="init()">
       <%# navi %>
-      <%#= render partial: 'layouts/navi/main' %>
+      <%= render partial: "#{params[:controller]}/navi/main" %>
 
       <%# contents %>
       <div class="container <%= params[:action] %>-action">
