@@ -46,7 +46,8 @@ class Content < ApplicationRecord
 
         # create sub tables
         Settings[:types].each{|type|
-          record.regist_subtable type, data[type]
+          symbol = type.to_s.pluralize.to_sym
+          record.regist_subtable symbol, data[symbol]
         }
 
         # return record data

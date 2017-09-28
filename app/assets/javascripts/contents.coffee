@@ -15,7 +15,11 @@ angular
   $scope.create = (data)->
     # TODO curtain
     $.post '/contents', data, (resp)->
-      c resp
+      if resp.status == 200
+        location.href = resp.results;
+      else
+        # TODO message
+        alert '処理に失敗しました'
 
   #=========================================
   # dmmsearch
