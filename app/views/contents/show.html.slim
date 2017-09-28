@@ -34,6 +34,7 @@ div.panel.panel-info
               span class="glyphicon my-glyphicon-#{key}" #{Content::dig_relation key, :text}
             // パネル内各要素
             div.panel-body
-              - for name in names
-                div.row
-                  a href="#{ url_for only_path: true, action: :search, type: key, searchstr: name}" #{name}
+              ul.list-group
+                - for name in names
+                  li.list-group-item
+                    a href="#{ url_for only_path: true, action: :search, type: key, searchstr: name}" #{name}
