@@ -13,7 +13,8 @@ div.panel.panel-info
   div.panel-body
     div.row.part-title
       span
-        a href="#{@content.url}" target="_blank" #{@content.title}
+        a href="#{@content.url}" target="_blank"
+          =@content.title
     div.row
       div.col-grid-1
       // サムネイル
@@ -30,11 +31,14 @@ div.panel.panel-info
           // 詳細情報用パネル
           //==========================
           div.panel.panel-info.names
+            // パネル名
             div.panel-heading
-              span class="glyphicon my-glyphicon-#{key}" #{Content::dig_relation key, :text}
+              span class="glyphicon my-glyphicon-#{key}"
+              = Content::dig_relation key, :text
             // パネル内各要素
             div.panel-body
               ul.list-group
                 - for name in names
                   li.list-group-item
-                    a href="#{ url_for only_path: true, action: :search, type: key, searchstr: name}" #{name}
+                    a href="#{url_for only_path: true, action: :list, type: key, name: name}"
+                      =name

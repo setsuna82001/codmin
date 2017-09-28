@@ -14,10 +14,14 @@ Rails.application.routes.draw do
   resources :contents
 
   #=====================================
+  # tag/author list
+  #=====================================
+  get   '/contents/list/:type/:name' => 'contents#list'
+
+  #=====================================
   # tag/author search
   #=====================================
-  get   '/contents/search/:type/:searchstr' => 'contents#search'
-  post  '/contents/search/:type/:searchstr' => 'contents#search'
+  post  '/contents/search'  => 'contents#search'
 
   #=====================================
   # POST: /api/search

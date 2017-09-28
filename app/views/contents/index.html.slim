@@ -1,6 +1,6 @@
-// TODO 遷移元で変更
+// 遷移元で変更
 - if params.has_key? :searchstr
-  h1 #{@searchinfo[:key]}：『#{@searchinfo[:str]}』の検索結果
+  h1 #{@viewinfo[:key]}：『#{@viewinfo[:name]}』の検索結果
 - else
   h1 一覧表示ぺーじ
 
@@ -10,19 +10,20 @@ br
 // 一覧表示パネル
 //=====================================
 div.panel.panel-info
-  / パネルヘッダ
+  // パネルヘッダ
   div.panel-heading 手順① 詳細を確認したいコンテンツをクリック
 
-  / パネル内容
+  // パネル内容
   div.panel-body
     div.row
       - @contents.each do |content|
         div.col-grid-3
-          a href="#{ url_for only_path: true, action: :show, id: content.id}"
+          a href="#{url_for only_path: true, action: :show, id: content.id}"
             div.thumbnail
               // タイトル
               div.row.part-title
-                span #{content.title}
+                span
+                  =content.title
               // サムネイル
               div.row.part-thumbnail
                 img src="#{content.img}"

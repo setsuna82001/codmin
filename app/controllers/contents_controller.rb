@@ -15,10 +15,10 @@ class ContentsController < ApplicationController
   end
 
   #=====================================
-  # GET:  /contents/search/:type/:searchstr
-  #   検索結果画面表示
+  # GET:  /contents/list/:type/:name
+  #   リスト画面表示
   #=====================================
-  def search
+  def list
     # type から Mstクラス生成
     klass = Content::master_class params[:type]
     # TODO varidate => type
@@ -26,7 +26,7 @@ class ContentsController < ApplicationController
 
     # 条件に合致するcontent_id一覧を取得
     ids   = klass
-      .where(name: params[:searchstr])
+      .where(name: params[:name])
       .map(&:content_ids)
       .flatten
       .uniq
@@ -36,18 +36,26 @@ class ContentsController < ApplicationController
     @contents = Content::where id: ids
 
     # 検索情報
-    @searchinfo = {
+    @viewinfo = {
       # 検索タイプ
       type: params[:type],
       # 検索タイプの文字化
       key:  Content::dig_relation(params[:type], :text),
-      # 検索文字列
-      str:  params[:searchstr],
+      # 指定文字列
+      name: params[:name],
     }
 
     # 描画設定
     params[:action] = :index
     render action: :index
+  end
+
+  #=====================================
+  # POST: /contents/search
+  #   検索結果画面表示
+  #=====================================
+  def search
+    # TODO varidate => type / searchstr
   end
 
   #=====================================
@@ -72,18 +80,19 @@ class ContentsController < ApplicationController
   #   新規登録処理
   #=====================================
   def create
-    data  = params.to_unsafe_hash.symbolize
+    # request params hash table
+    table = params.to_unsafe_hash.symbolize
 
-    # exist check
-    render json: Resjon::error409 and return if Content::exist? url: data[:url]
+    # exist check and error response
+    render json: Resjon::error409 and return if Content::exist? url: table[:url]
 
     # search content detail
-    data  = data.merge DMMContent::detail data[:url]
+    data  = table.merge DMMContent::detail table[:url]
 
     # regist data
     record= Content::regist data
 
-    # deplicate response
+    # deplicate check and error response
     render json: Resjon::error500 and return if record.nil?
 
     # normal response
@@ -93,6 +102,7 @@ class ContentsController < ApplicationController
 
   #=====================================
   # POST: /api/search
+  #   DMMコンテンツ検索
   #=====================================
   def dmmsearch
     # search dmm contents
