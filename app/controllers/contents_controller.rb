@@ -54,6 +54,7 @@ class ContentsController < ApplicationController
   #=====================================
   def search
     # TODO varidate => type / searchstr
+    render action: :index
   end
 
   #=====================================

@@ -96,7 +96,7 @@ class Content < ApplicationRecord
     klass     = self.class::master_class type
     # regist each data
     list.each{|text|
-      # record.masters_tags << mastersTag::find_or_create_by
+      # record.mst_tags << mastersTag::find_or_create_by
       receiver << klass::find_or_create_by(name: text)
     }
   end
@@ -107,7 +107,8 @@ class Content < ApplicationRecord
   #=====================================
   def names type
     # make receiver
-    receiver  = self.masters type
+    receiver = self.masters type
+    return [] if receiver.nil?
     # rteturn names
     receiver.map &:name
   end
