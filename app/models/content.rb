@@ -18,7 +18,7 @@ class Content < ApplicationRecord
     #   Settings[:relations] の中を掘って返す
     #===================================
     def dig_relation type, *args
-      Settings[:relations][type].dig *args
+      Settings[:relations].dig *[type, *args].flatten
     end
 
     #===================================
@@ -27,6 +27,7 @@ class Content < ApplicationRecord
     #===================================
     def master_class type
       name  = dig_relation type, *%i(model master)
+      return nil if name.nil?
       klass = Kernel::const_get name
     end
 
@@ -80,6 +81,7 @@ class Content < ApplicationRecord
   def masters type
     # make receiver
     name      = self.dig_relation type, *%i(relation master)
+    return nil if name.nil?
     receiver  = self.send name
   end
 

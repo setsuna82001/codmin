@@ -1,7 +1,5 @@
 class ContentsController < ApplicationController
 
-  # TODO varication
-
   #=====================================
   # GET:  /
   # GET:  /contents
@@ -21,8 +19,8 @@ class ContentsController < ApplicationController
   def list
     # type から Mstクラス生成
     klass = Content::master_class params[:type]
-    # TODO varidate => type
-    # if klass.nil?
+    # varidate => type
+    render action: :error, status: 400 and return if klass.nil?
 
     # 条件に合致するcontent_id一覧を取得
     ids   = klass
@@ -70,9 +68,8 @@ class ContentsController < ApplicationController
   #   詳細表示
   #=====================================
   def show
-    # TODO varidate => id
-    @content  = Content::find params[:id]
-    # if @content.nil?
+    @content  = Content::find_by_id params[:id]
+    render action: :error, status: 404 and return if @content.nil?
   end
 
   #=====================================
