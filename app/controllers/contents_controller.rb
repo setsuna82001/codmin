@@ -48,6 +48,7 @@ class ContentsController < ApplicationController
     render action: :index
   end
 
+=begin TODO
   #=====================================
   # POST: /contents/search
   #   検索結果画面表示
@@ -56,6 +57,7 @@ class ContentsController < ApplicationController
     # TODO varidate => type / searchstr
     render action: :index
   end
+=end
 
   #=====================================
   # GET:  /contents/new
