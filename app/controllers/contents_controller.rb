@@ -7,7 +7,7 @@ class ContentsController < ApplicationController
   #=====================================
   def index
     # empty check
-    redirect_to action: :new and return if Content::blank?
+    redirect_to action: :new and return unless Content::any?
     # TODO pager
     @contents = Content::all
   end
