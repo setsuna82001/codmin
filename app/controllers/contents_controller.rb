@@ -81,19 +81,19 @@ class ContentsController < ApplicationController
   #=====================================
   def create
     # request params hash table
-    table = params.to_unsafe_hash.symbolize
+    table   = params.to_unsafe_hash.symbolize
 
     # exist check and error response
-    render json: Resjon::error409 and return if Content::exist? url: table[:url]
+    render json: Resjon::error409, status: 409 and return unless Content::where(url: table[:url]).empty?
 
     # search content detail
-    data  = table.merge DMMContent::detail table[:url]
+    detail  = DMMContent::detail table[:url]
+    # http error response
+    render json: Resjon::error500, status: 500 and return if detail.nil?
 
     # regist data
-    record= Content::regist data
-
-    # deplicate check and error response
-    render json: Resjon::error500 and return if record.nil?
+    data    = table.merge detail
+    record  = Content::regist data
 
     # normal response
     url = url_for only_path: true, action: :show, id: record.id

@@ -61,6 +61,7 @@ end
 group :test do
   gem 'rspec'
   gem 'rspec-rails'
+  gem 'rails-controller-testing'
   gem 'nyan-cat-formatter'
   gem 'factory_girl_rails'
   gem 'database_cleaner'

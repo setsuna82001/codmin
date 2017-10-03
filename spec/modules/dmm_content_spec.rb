@@ -21,4 +21,12 @@ describe DMMContent do
       tags:     an_instance_of(Array)
     )
   end
+
+  #=======================================
+  # DMMContent#detail
+  #=======================================
+  it '#detail illegal url' do
+    data = DMMContent::detail 'http://sample/'
+    expect(data).to be_nil
+  end
 end

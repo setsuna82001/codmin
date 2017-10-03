@@ -32,7 +32,7 @@ module DMMContent
     def detail url
       # access to detail page
       agent = Mechanize.new
-      page  = agent.get url.to_s
+      page  = agent.get url.to_s rescue return nil
 
       # parsing
       data  = %i(authors tags).inject([]){|arr, key|
