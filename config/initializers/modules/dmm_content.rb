@@ -7,7 +7,7 @@ module DMMContent
   # DMMContent::ClassMethods
   #=====================================
   class << self
-    # TODO cache
+    # TODO future:cache
 
     #===================================
     # DMMContent::search

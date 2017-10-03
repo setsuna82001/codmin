@@ -13,12 +13,12 @@ angular
   #   DMMコンテンツ検索
   #=========================================
   $scope.create = (data)->
-    # TODO curtain
+    # TODO future:curtain
     $.post '/contents', data, (resp)->
       if resp.status == 200
         location.href = resp.results;
       else
-        # TODO message
+        # TODO future:message detail
         alert '処理に失敗しました'
 
   #=========================================
@@ -28,7 +28,7 @@ angular
   $scope.dmmsearch = (str)->
     # 空文字チェック
     return unless str
-    # TODO curtain
+    # TODO future:curtain
     $.post '/api/search', {searchstr: str}, (data)->
       $scope.$apply ->
         $scope.searchlist = data

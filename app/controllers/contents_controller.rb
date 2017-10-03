@@ -8,7 +8,7 @@ class ContentsController < ApplicationController
   def index
     # empty check
     redirect_to action: :new and return unless Content::any?
-    # TODO pager
+    # TODO future:pager
     @contents = Content::all
   end
 
@@ -28,7 +28,7 @@ class ContentsController < ApplicationController
       .map(&:content_ids)
       .flatten
       .uniq
-    # TODO pager
+    # TODO future:pager
 
     # 表示対象のコンテンツ一覧を生成
     @contents = Content::where id: ids
@@ -48,13 +48,12 @@ class ContentsController < ApplicationController
     render action: :index
   end
 
-=begin TODO
+=begin TODO future
   #=====================================
   # POST: /contents/search
   #   検索結果画面表示
   #=====================================
   def search
-    # TODO varidate => type / searchstr
     render action: :index
   end
 =end
@@ -107,7 +106,7 @@ class ContentsController < ApplicationController
   def dmmsearch
     # search dmm contents
     data = DMMContent::search params[:searchstr]
-    # TODO 登録済(registed)属性の追加
+    # TODO future:登録済(registed)属性の追加
     render json: data.to_json and return
   end
 end

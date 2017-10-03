@@ -21,7 +21,8 @@ Rails.application.routes.draw do
   #=====================================
   # tag/author search
   #=====================================
-  post  '/contents/search'  => 'contents#search'
+  # TODO future
+  #post  '/contents/search'  => 'contents#search'
 
   #=====================================
   # POST: /api/search

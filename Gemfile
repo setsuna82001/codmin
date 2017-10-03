@@ -45,7 +45,7 @@ gem 'config'
 gem 'binding_of_caller'
 # login
 gem 'sorcery', git: 'git@github.com:NoamB/sorcery.git'
-# TODO use solr
+# TODO future:use solr
 # gem 'rsolr'
 # gem 'sunspot'
 
