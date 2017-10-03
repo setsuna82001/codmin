@@ -1,4 +1,5 @@
 class MstTag < ApplicationRecord
+  include ContentInfoCommon
   include ContentInfoMaster
   has_many :tags
 

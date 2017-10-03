@@ -1,4 +1,5 @@
 class MstAuthor < ApplicationRecord
+  include ContentInfoCommon
   include ContentInfoMaster
   has_many :authors
 
