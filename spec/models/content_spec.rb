@@ -8,7 +8,7 @@ RSpec.describe Content, type: :model do
   #=======================================
   it '::dig_relation' do
     # not exist key
-    expect(Content::dig_relation :nil_key).to be_nil
+    expect(Content::dig_relation :nil).to be_nil
 
     types.each{|type|
       # main key only
@@ -16,7 +16,7 @@ RSpec.describe Content, type: :model do
       # sub key
       expect(Content::dig_relation type, :text).to eq Settings[:relations][type][:text]
       # not exist key
-      expect(Content::dig_relation type, :nil_key).to be_nil
+      expect(Content::dig_relation type, :nil).to be_nil
     }
   end
 
@@ -25,7 +25,7 @@ RSpec.describe Content, type: :model do
   #=======================================
   it '::master_class' do
     # not exist key
-    expect(Content::master_class :nil_key).to be_nil
+    expect(Content::master_class :nil).to be_nil
 
     # each type
     expect(Content::master_class :author).to eq MstAuthor
@@ -72,7 +72,7 @@ RSpec.describe Content, type: :model do
     #=====================================
     it '.dig_relation' do
       # not exist key
-      expect(content.dig_relation :nil_key).to be_nil
+      expect(content.dig_relation :nil).to be_nil
 
       types.each{|type|
         # main key only
@@ -80,7 +80,7 @@ RSpec.describe Content, type: :model do
         # sub key
         expect(content.dig_relation type, :text).to eq Settings[:relations][type][:text]
         # not exist key
-        expect(content.dig_relation type, :nil_key).to be_nil
+        expect(content.dig_relation type, :nil).to be_nil
       }
     end
 
@@ -89,7 +89,7 @@ RSpec.describe Content, type: :model do
     #=====================================
     it '.masters' do
       # not exist key
-      expect(content.masters :nil_key).to be_nil
+      expect(content.masters :nil).to be_nil
 
       # author side
       expect(content.masters :author ).to eq content.mst_authors
@@ -105,7 +105,7 @@ RSpec.describe Content, type: :model do
     #=====================================
     it '.regist_subtable' do
       # not exist key
-      expect{content.regist_subtable :nil_key, []}.to raise_error TypeError
+      expect{content.regist_subtable :nil, []}.to raise_error TypeError
 
       types.each{|type|
         # not array
@@ -132,7 +132,7 @@ RSpec.describe Content, type: :model do
     #=====================================
     it '.names' do
       # not exist key
-      expect(content.names :nil_key).to be_empty
+      expect(content.names :nil).to be_empty
 
       # author side
       list  = content.mst_authors.map &:name
