@@ -55,14 +55,6 @@ class Content < ApplicationRecord
         record
       end
     end
-
-    #===================================
-    # Content::regist
-    #   子テーブルまで登録するメソッド
-    #===================================
-    def exist? cond
-      where(cond).empty?.!
-    end
   end
 
   #=====================================
@@ -94,10 +86,17 @@ class Content < ApplicationRecord
     receiver  = self.masters type
     # make master class
     klass     = self.class::master_class type
+    # object check
+    raise TypeError, "type=#{type} is Not Accept" if receiver.nil? || klass.nil?
+    raise TypeError, "list is Array Only" unless Array === list
+
     # regist each data
     list.each{|text|
-      # record.mst_tags << mastersTag::find_or_create_by
-      receiver << klass::find_or_create_by(name: text)
+      # deplicate check
+      record  = klass::find_or_create_by name: text.to_s
+      next if receiver.include? record
+      # record.mst_tags << MstTag::find_or_create_by
+      receiver << record
     }
   end
 
@@ -121,7 +120,7 @@ class Content < ApplicationRecord
     # Content#***_names
     #   Content#namesの呼出
     #===================================
-    return self.names "#{$1}s".to_sym if name =~ /^(.+)s?_names$/
+    return self.names "#{$1}s".to_sym if name =~ /^(.+?)s?_names$/
     # 上層呼出
     super
   end
