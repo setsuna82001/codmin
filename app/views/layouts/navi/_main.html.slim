@@ -1,0 +1,10 @@
+// ナビ
+nav.navbar.navbar-default
+  div.container-fluid
+
+    // トップリンク
+    div.nav-header.col-grid-2
+      a.navbar-brand href="/"
+        span.glyphicon.glyphicon-home とっぷぺーじ
+
+    == render partial: "#{params[:controller]}/navi/main"

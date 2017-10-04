@@ -1,0 +1,30 @@
+//=====================================
+// メッセージ
+//=====================================
+== render partial: 'layouts/part/flash_alert'
+
+//=====================================
+// ログイン用パネル
+//=====================================
+div.panel.panel-info
+  // パネルヘッダ
+  div.panel-heading
+    <span>ろぐいんふぉーむ
+
+  // パネル内容
+  div.panel-body.container
+    = form_tag sessions_path, method: :post
+
+      - %i(email password).each do |key|
+        div.input-group.col-grid-3
+          span.input-group-addon
+            = key
+          - if /^password/ =~ key
+            input.form-control id="#{key}" name="#{key}" type="password"
+          - else
+            input.form-control id="#{key}" name="#{key}" type="text"
+
+      br
+
+      div.actions
+        = submit_tag "ろぐいん！"

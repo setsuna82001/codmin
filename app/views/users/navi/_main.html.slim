@@ -1,0 +1,11 @@
+// ナビ
+div.collapse.navbar-collapse
+  // 右側メニュー
+  ul.nav.navbar-nav.navbar-right
+    - if current_user.nil?
+      li
+        a.navbar-brand.navbar-link href="#{url_for only_path: true, controller: :users, action: :new}"
+          span.glyphicon.glyphicon-user ゆーざー登録
+      li
+        a.navbar-brand.navbar-link href="#{url_for :login}"
+          span.glyphicon.glyphicon-log-in ろぐいん

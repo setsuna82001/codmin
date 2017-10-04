@@ -1,6 +1,37 @@
 Rails.application.routes.draw do
+
+  #=====================================
+  # Root
   #=====================================
   root 'contents#index'
+
+  #=====================================
+  # GET:  /users      => users#index
+  # GET:  /users/new  => users#new
+  # POST: /users      => users#create
+  # GET:  /users/:id  => users#show
+  # GET:  /users/:id/edit => users#edit
+  # PUT:  /users/:id  => users#update
+  # DEL:  /users/:id  => users#destroy
+  #=====================================
+  resources :users
+
+  #=====================================
+  # GET:  /sessions     => user_sessions#index
+  # GET:  /sessions/new => user_sessions#new
+  # POST: /sessions     => user_sessions#create
+  # GET:  /sessions/:id => user_sessions#show
+  # GET:  /sessions/:id/edit  => user_sessions#edit
+  # PUT:  /sessions/:id => user_sessions#update
+  # DEL:  /sessions/:id => user_sessions#destroy
+  #=====================================
+  resources :sessions,  controller: :user_sessions
+
+  #=====================================
+  # login/logout
+  #=====================================
+  get   'login'   => 'user_sessions#new',     as: :login
+  get   'logout'  => 'user_sessions#destroy', as: :logout
 
   #=====================================
   # GET:  /contents     => contents#index

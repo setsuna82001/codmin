@@ -1,0 +1,32 @@
+//=====================================
+// メッセージ
+//=====================================
+== render partial: 'layouts/part/flash_alert'
+
+//=====================================
+// 入力用パネル
+//=====================================
+div.panel.panel-info
+  // パネルヘッダ
+  div.panel-heading
+    <span>入力ふぉーむ
+
+  // パネル内容
+  div.panel-body.container
+    // フォームの宣言
+    = form_for @user do |form|
+      // 各要素の宣言
+      - %i(email password password_confirmation).each do |key|
+        div.input-group.col-grid-7
+          span.input-group-addon
+            = key
+          - if /^password/ =~ key
+            = form.password_field key, class: 'form-control'
+          - else
+            = form.text_field key, class: 'form-control', readonly: (params[:action] == "edit")
+
+      br
+
+      // ボタン
+      div.actions
+        = form.submit

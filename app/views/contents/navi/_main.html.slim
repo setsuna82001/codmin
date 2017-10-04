@@ -1,30 +1,33 @@
 // ナビ
-nav.navbar.navbar-default
-  div.container-fluid
+div.collapse.navbar-collapse
 
-    // トップリンク
-    div.nav-header.col-grid-2
-      a.navbar-brand href="/"
-        span.glyphicon.glyphicon-home とっぷぺーじ
+  // TODO future:登録済みコンテンツ検索
+  /form.navbar-form.navbar-left
+    div.form-group
+      // プルダウン
+      select.form-control
+        - for key in Settings[:types]
+          option value="#{key}"
+            = Content::dig_relation key, :text
+      // 入力ボックス
+      input.form-control type="text"
+    // ボタン
+    button.btn.btn-default.btn-primary type="submit"
+      span.glyphicon.glyphicon-search けんさく
 
+  // 右ナビ
+  ul.nav.navbar-nav.navbar-right
+    // コンテンツ登録
+    li
+      a.navbar-brand.navbar-link href="#{url_for action: :new}"
+        span.glyphicon.glyphicon-file DMM検索
 
+    // ユーザー情報編集
+    li
+    a.navbar-brand.navbar-link href="#{url_for controller: :users, action: :edit, id: current_user.id}"
+      span.glyphicon.glyphicon-pencil ログイン情報
 
-    div.collapse.navbar-collapse
-      // 検索関連
-      /form.navbar-form.navbar-left
-        div.form-group
-          // プルダウン
-          select.form-control
-            - for key in Settings[:types]
-              option value="#{key}"
-                = Content::dig_relation key, :text
-          // 入力ボックス
-          input.form-control type="text"
-        // ボタン
-        button.btn.btn-default.btn-primary type="submit"
-          span.glyphicon.glyphicon-search けんさく
-
-      // 新規登録
-      ul.nav.navbar-nav.navbar-right
-        a.navbar-brand.navbar-link href="#{url_for only_path: true, action: :new}"
-          span.glyphicon.glyphicon-file しんきとうろく
+    // ログアウト
+    li
+      a.navbar-brand.navbar-link href="#{url_for :logout}"
+        span.glyphicon.glyphicon-log-out ろぐあうと

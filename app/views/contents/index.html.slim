@@ -1,8 +1,13 @@
 // 遷移元で変更
-- if params.has_key? :searchstr
-  h1 #{@viewinfo[:key]}：『#{@viewinfo[:name]}』の検索結果
+- if params.has_key? :name
+  h1 #{@viewinfo[:key]}：『#{@viewinfo[:name]}』の一覧
 - else
   h1 一覧表示ぺーじ
+
+//=====================================
+// メッセージ
+//=====================================
+== render partial: 'layouts/part/flash_alert'
 
 br
 
@@ -11,7 +16,7 @@ br
 //=====================================
 div.panel.panel-info
   // パネルヘッダ
-  div.panel-heading 手順① 詳細を確認したいコンテンツをクリック
+  div.panel-heading 詳細を確認したいコンテンツをクリック
 
   // パネル内容
   div.panel-body
