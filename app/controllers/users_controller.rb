@@ -36,8 +36,7 @@ class UsersController < ApplicationController
     # create test
     if @user.save
       # success
-      flash[:success] = 'ユーザー登録に成功しました！'
-      redirect_to :login#, flash: {success: 'ユーザー登録に成功しました！'}
+      redirect_to :login, flash: {success: 'ユーザー登録に成功しました！'}
     else
       # error
       # TODO future:エラー詳細
@@ -58,6 +57,7 @@ class UsersController < ApplicationController
       # error
       # TODO future:エラー詳細
       flash.now[:danger] = 'ログイン情報を変更できませんでした！'
+      params[:action] = :edit.to_s
       render :edit
     end
   end
